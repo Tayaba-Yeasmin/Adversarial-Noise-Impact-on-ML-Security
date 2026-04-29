@@ -1,0 +1,74 @@
+# Step 1: Import Library
+import numpy as np
+import matplotlib.pyplot as plt
+
+from sklearn.datasets import load_iris
+from sklearn.ensemble import RandomForestClassifier
+
+# Step 2: Dataset load
+data = load_iris()
+X = data.data
+y = data.target
+
+# Step 3: Model train
+model = RandomForestClassifier()
+model.fit(X, y)
+
+print("Model trained successfully\n")
+
+# Step 4: Test Samples
+for idx in range(5):
+    print("Sample", idx+1)
+    
+    sample = X[idx].reshape(1, -1)
+    
+    # Original prediction
+    original_pred = model.predict(sample)
+    print("Original Prediction:", original_pred)
+    
+    # Noise add
+    noise = np.random.normal(0, 3.0, sample.shape)
+    sample_noisy = sample + noise
+    
+    noisy_pred = model.predict(sample_noisy)
+    print("After Noise Prediction:", noisy_pred)
+    
+    # Difference
+    if (original_pred != noisy_pred):
+        print("Prediction Changed (Model Fooled!)")
+    else:
+        print("No Change")
+    
+    print("\n")
+    original_preds = []
+noisy_preds = []
+
+# 20টা sample নিয়ে test
+for idx in range(20):
+    sample = X[idx].reshape(1, -1)
+    
+    original_pred = model.predict(sample)[0]
+    
+    noise = np.random.normal(0, 3.0, sample.shape)
+    sample_noisy = sample + noise
+    
+    noisy_pred = model.predict(sample_noisy)[0]
+    
+    original_preds.append(original_pred)
+    noisy_preds.append(noisy_pred)
+
+# Plot
+import matplotlib.pyplot as plt
+
+plt.figure()
+plt.plot(original_preds, marker='o', label='Original Prediction')
+plt.plot(noisy_preds, marker='x', linestyle='dashed', label='Noisy Prediction')
+
+plt.xlabel("Sample Index")
+plt.ylabel("Predicted Class")
+plt.title("Effect of Adversarial Noise on Predictions")
+
+plt.legend()
+plt.grid()
+
+plt.show()

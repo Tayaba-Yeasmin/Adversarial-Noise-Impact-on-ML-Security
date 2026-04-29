@@ -1,2 +1,15 @@
-# Adversarial-Noise-Impact-on-ML-Security
-This project demonstrates the impact of adversarial noise on machine learning models using a Random Forest classifier. It analyzes how small perturbations in input data can lead to changes in predictions, highlighting vulnerabilities in machine learning systems from a cybersecurity perspective.
+# Adversarial Noise Impact on Machine Learning
+
+## Project Overview
+This project demonstrates how small adversarial noise can affect machine learning predictions.
+
+## Method
+- Random Forest Classifier
+- Iris Dataset
+- Gaussian noise injection
+
+## Key Insight
+Small perturbations in input can lead to incorrect model predictions, highlighting vulnerabilities in ML systems.
+
+## Visualization
+Plots show difference between original and noisy predictions.
